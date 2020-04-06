@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Insert title here</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="../js/cooperApp.js"></script>
+		<script src="../js/cooperCtrl.js"></script>
+		<script src="../js/resgateCtrl.js"></script>
+		<link rel="stylesheet" href="../css/CooperStyle.css">
+		<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.botao{ background-color: blue; 
+	color:white;
+padding: 15px;}
+
+</style>
+
+	</head>
+<body ng-app="cooperApp" ng-controller="resgateCtrl">
+
+<header style="background-color:darkslategray;">
+  
+	  <h2>Resgate </h2>
+</header>
+
+<section>
+  <div >
+	  
+	<p class="invest"> DADOS DO INVESTIMENTO </p><br>
+	  
+	<table>
+		<tr>
+    		<th>Nome</th>
+    		<th>Saldo total disponível</th>
+    		<th>Valor total a resgatar</th>
+		</tr>
+		<tr>
+			<td >{{investimento.nome}}</td>
+			<td style="text-align:right;">{{investimento.saldoTotalDisponivel | currency:"R$"}}</td>
+			<td style="text-align:right;">{{investimento.saldoTotalDisponivel * 0.25 | currency:"R$"}}</td>
+		</tr>
+
+	</table>
+	<div>
+		<form >
+			<P> RESGATE DO SEU JEITO</P><br>
+			<table>
+				<tr>
+					<th>AÇÃO</th>
+					<th>SALDO ACUMULADO</th>
+					<th>VALO A RESGATAR</th>
+				</tr>
+				<tr ng-repeat="acao in investimento.acoes" >
+					<td>{{acao.nome}}</td>
+					<td style="text-align:right;">{{investimento.saldoTotalDisponivel * acao.percentual / 100 | currency:"R$"}}</td>
+					<td><input type="text" nome="valor"/></td>
+				</tr>
+			</table>
+			<input id="myBtn"  class="botao" type="submit" value="Confirmar Resgate">
+		</form>
+	</div>
+  </div>
+  <!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+	<p style="text-align:center"><h3 >RESGATE EFETUADO COM SUCESSO</h3></p>
+	<P style="text-align:center"> O valor solicidado estará na conta em até 5 dias úteis.</P>
+	<p style="text-align:center"><input type="submit" value="NOVO RESGATE"></p>
+  </div>
+
+</div>
+</section>
+
+<footer ng-controller="cooperCtrl" ng-model="footer">
+<p>{{footer}}</p>
+</footer>
+<script>
+var modal = document.getElementById("myModal");
+
+var btn = document.getElementById("myBtn");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+</body>
+</html>
